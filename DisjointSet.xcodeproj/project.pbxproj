@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		D4F9F9BB1A86FA3D00B7071E /* DisjointSet.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F9F9BA1A86FA3D00B7071E /* DisjointSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D4F9F9BD1A86FA3D00B7071E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = D4F9F9BC1A86FA3D00B7071E /* .gitignore */; };
-		D4F9F9C01A86FA3D00B7071E /* DisjointSet.xcworkspace in Resources */ = {isa = PBXBuildFile; fileRef = D4F9F9BF1A86FA3D00B7071E /* DisjointSet.xcworkspace */; };
 		D4F9F9C61A86FA3D00B7071E /* DisjointSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4F9F9B51A86FA3D00B7071E /* DisjointSet.framework */; };
 		D4F9F9CD1A86FA3D00B7071E /* DisjointSetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F9F9CC1A86FA3D00B7071E /* DisjointSetTests.swift */; };
 /* End PBXBuildFile section */
@@ -28,9 +26,6 @@
 		D4F9F9B51A86FA3D00B7071E /* DisjointSet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DisjointSet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4F9F9B91A86FA3D00B7071E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4F9F9BA1A86FA3D00B7071E /* DisjointSet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DisjointSet.h; sourceTree = "<group>"; };
-		D4F9F9BC1A86FA3D00B7071E /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; name = .gitignore; path = ../.gitignore; sourceTree = "<group>"; };
-		D4F9F9BE1A86FA3D00B7071E /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		D4F9F9BF1A86FA3D00B7071E /* DisjointSet.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; path = DisjointSet.xcworkspace; sourceTree = SOURCE_ROOT; };
 		D4F9F9C51A86FA3D00B7071E /* DisjointSetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DisjointSetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4F9F9CB1A86FA3D00B7071E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4F9F9CC1A86FA3D00B7071E /* DisjointSetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisjointSetTests.swift; sourceTree = "<group>"; };
@@ -77,9 +72,6 @@
 			isa = PBXGroup;
 			children = (
 				D4F9F9BA1A86FA3D00B7071E /* DisjointSet.h */,
-				D4F9F9BC1A86FA3D00B7071E /* .gitignore */,
-				D4F9F9BE1A86FA3D00B7071E /* LICENSE */,
-				D4F9F9BF1A86FA3D00B7071E /* DisjointSet.xcworkspace */,
 				D4F9F9B81A86FA3D00B7071E /* Supporting Files */,
 			);
 			path = DisjointSet;
@@ -200,8 +192,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4F9F9BD1A86FA3D00B7071E /* .gitignore in Resources */,
-				D4F9F9C01A86FA3D00B7071E /* DisjointSet.xcworkspace in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
