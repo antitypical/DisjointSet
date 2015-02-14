@@ -7,13 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D4EAE2351A87B46C00931323 /* List.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4EAE2341A87B46C00931323 /* List.framework */; };
-		D4EAE2361A87B48700931323 /* List.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4EAE2341A87B46C00931323 /* List.framework */; };
 		D4F9F9BB1A86FA3D00B7071E /* DisjointSet.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F9F9BA1A86FA3D00B7071E /* DisjointSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D4F9F9C61A86FA3D00B7071E /* DisjointSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4F9F9B51A86FA3D00B7071E /* DisjointSet.framework */; };
 		D4F9F9CD1A86FA3D00B7071E /* DisjointSetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F9F9CC1A86FA3D00B7071E /* DisjointSetTests.swift */; };
-		D4F9F9DD1A87001400B7071E /* Box.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4F9F9DC1A87001400B7071E /* Box.framework */; };
-		D4F9F9DE1A87002D00B7071E /* Box.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4F9F9DC1A87001400B7071E /* Box.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,14 +23,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		D4EAE2341A87B46C00931323 /* List.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = List.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4F9F9B51A86FA3D00B7071E /* DisjointSet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DisjointSet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4F9F9B91A86FA3D00B7071E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4F9F9BA1A86FA3D00B7071E /* DisjointSet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DisjointSet.h; sourceTree = "<group>"; };
 		D4F9F9C51A86FA3D00B7071E /* DisjointSetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DisjointSetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4F9F9CB1A86FA3D00B7071E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4F9F9CC1A86FA3D00B7071E /* DisjointSetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisjointSetTests.swift; sourceTree = "<group>"; };
-		D4F9F9DC1A87001400B7071E /* Box.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Box.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,8 +36,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4EAE2351A87B46C00931323 /* List.framework in Frameworks */,
-				D4F9F9DD1A87001400B7071E /* Box.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,8 +43,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4EAE2361A87B48700931323 /* List.framework in Frameworks */,
-				D4F9F9DE1A87002D00B7071E /* Box.framework in Frameworks */,
 				D4F9F9C61A86FA3D00B7071E /* DisjointSet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -90,8 +80,6 @@
 		D4F9F9B81A86FA3D00B7071E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D4F9F9DC1A87001400B7071E /* Box.framework */,
-				D4EAE2341A87B46C00931323 /* List.framework */,
 				D4F9F9B91A86FA3D00B7071E /* Info.plist */,
 			);
 			name = "Supporting Files";

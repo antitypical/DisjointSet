@@ -4,10 +4,4 @@
    <FileRef
       location = "group:DisjointSet.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:External/Box/Box.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:External/List/List.xcodeproj">
-   </FileRef>
 </Workspace>
