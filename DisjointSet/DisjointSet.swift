@@ -1,6 +1,6 @@
 //  Copyright (c) 2015 Rob Rix. All rights reserved.
 
-public struct DisjointSet<T>: ArrayLiteralConvertible, SequenceType {
+public struct DisjointSet<T>: ArrayLiteralConvertible, CollectionType {
 	public init<S: SequenceType where S.Generator.Element == T>(_ sequence: S) {
 		sets = map(enumerate(sequence)) { (parent: $0, rank: 0, value: $1) }
 	}
@@ -52,6 +52,19 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, SequenceType {
 
 	public init(arrayLiteral elements: T...) {
 		self.init(elements)
+	}
+
+
+	// MARK: CollectionType
+
+	public let startIndex = 0
+
+	public var endIndex: Int {
+		return count
+	}
+
+	public subscript (index: Int) -> T {
+		return sets[index].value
 	}
 
 
