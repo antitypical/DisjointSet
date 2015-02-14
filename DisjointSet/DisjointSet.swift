@@ -1,6 +1,6 @@
 //  Copyright (c) 2015 Rob Rix. All rights reserved.
 
-public struct DisjointSet<T>: ArrayLiteralConvertible, CollectionType {
+public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType {
 	public init<S: SequenceType where S.Generator.Element == T>(_ sequence: S) {
 		sets = map(enumerate(sequence)) { (parent: $0, rank: 0, value: $1) }
 	}
@@ -65,6 +65,27 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, CollectionType {
 
 	public subscript (index: Int) -> T {
 		return sets[index].value
+	}
+
+
+	// MARK: ExtensibleCollectionType
+
+	public init() {
+		sets = []
+	}
+
+	public mutating func reserveCapacity(minimumCapacity: Int) {
+		sets.reserveCapacity(minimumCapacity)
+	}
+
+	public mutating func append(value: T) {
+		sets.append(parent: count, rank: 0, value: value)
+	}
+
+	public mutating func extend<S: SequenceType where S.Generator.Element == T>(values: S) {
+		for each in values {
+			append(each)
+		}
 	}
 
 
