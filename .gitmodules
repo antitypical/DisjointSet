@@ -1,0 +1,3 @@
+[submodule "External/Assertions"]
+	path = External/Assertions
+	url = https://github.com/robrix/Assertions.git
