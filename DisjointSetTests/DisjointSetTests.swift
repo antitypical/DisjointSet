@@ -22,5 +22,6 @@ final class DisjointSetTests: XCTestCase {
 
 // MARK: - Imports
 
+import Assertions
 import DisjointSet
 import XCTest

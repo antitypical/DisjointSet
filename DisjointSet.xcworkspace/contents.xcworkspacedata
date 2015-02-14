@@ -4,4 +4,7 @@
    <FileRef
       location = "group:DisjointSet.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:External/Assertions/Assertions.xcodeproj">
+   </FileRef>
 </Workspace>
