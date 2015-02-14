@@ -17,6 +17,12 @@ final class DisjointSetTests: XCTestCase {
 		set.union(1, 3)
 		assertEqual(set.findAll().count, 4)
 	}
+
+	func testAppendedElementsAreInitiallyDisjoint() {
+		var set = self.set
+		set.append("f")
+		assert(set.find(5), ==, 5)
+	}
 }
 
 
