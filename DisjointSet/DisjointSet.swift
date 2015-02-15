@@ -98,5 +98,12 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType 
 
 	// MARK: Private
 
+	private func findImmutable(var x: Int) -> Int {
+		while sets[x].parent != x {
+			x = sets[x].parent
+		}
+		return x
+	}
+
 	private var sets: [(parent: Int, rank: Int, value: T)]
 }
