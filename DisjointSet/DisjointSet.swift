@@ -1,6 +1,6 @@
 //  Copyright (c) 2015 Rob Rix. All rights reserved.
 
-public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType {
+public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType, Printable {
 	public init<S: SequenceType where S.Generator.Element == T>(_ sequence: S) {
 		sets = map(enumerate(sequence)) { (parent: $0, rank: 0, value: $1) }
 	}
@@ -89,6 +89,18 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType 
 	}
 
 
+	// MARK: Printable
+
+	public var description: String {
+		let groups = reduce(lazy(enumerate(self))
+			.map { (self.findImmutable($0), toString($1)) }, [Int: [String]]()) { (var g, kv) in
+				g[kv.0] = (g[kv.0] ?? []) + [ kv.1 ]
+				return g
+			}
+		return "{" + ", ".join(lazy(groups).map { "{" + ", ".join($1) + "}" }) + "}"
+	}
+
+
 	// MARK: SequenceType
 
 	public func generate() -> GeneratorOf<T> {
@@ -97,6 +109,13 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType 
 
 
 	// MARK: Private
+
+	private func findImmutable(var x: Int) -> Int {
+		while sets[x].parent != x {
+			x = sets[x].parent
+		}
+		return x
+	}
 
 	private var sets: [(parent: Int, rank: Int, value: T)]
 }
