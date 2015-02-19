@@ -1,6 +1,6 @@
 //  Copyright (c) 2015 Rob Rix. All rights reserved.
 
-public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType {
+public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType, Printable {
 	public init<S: SequenceType where S.Generator.Element == T>(_ sequence: S) {
 		sets = map(enumerate(sequence)) { (parent: $0, rank: 0, value: $1) }
 	}
@@ -41,6 +41,14 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType 
 
 
 	// MARK: Find
+
+	/// Returns the index of the representative of the set for the element at index `a`.
+	public func find(a: Int) -> Int {
+		while sets[x].parent != x {
+			x = sets[x].parent
+		}
+		return x
+	}
 
 	/// Returns the index of the representative of the set for the element at index `a`.
 	public mutating func findInPlace(a: Int) -> Int {
@@ -100,6 +108,18 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType 
 		for each in values {
 			append(each)
 		}
+	}
+
+
+	// MARK: Printable
+
+	public var description: String {
+		let groups = reduce(lazy(enumerate(self))
+			.map { (self.find($0), toString($1)) }, [Int: [String]]()) { (var g, kv) in
+				g[kv.0] = (g[kv.0] ?? []) + [ kv.1 ]
+				return g
+			}
+		return "{" + ", ".join(lazy(groups).map { "{" + ", ".join($1) + "}" }) + "}"
 	}
 
 
