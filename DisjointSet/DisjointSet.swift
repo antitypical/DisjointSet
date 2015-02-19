@@ -38,6 +38,7 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType 
 	}
 
 
+	/// Returns the index of the representative of the set for the element at index `a`.
 	public mutating func findInPlace(a: Int) -> Int {
 		let n = sets[a]
 		if n.parent == a {
@@ -49,6 +50,7 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType 
 		}
 	}
 
+	/// Returns the indices of the representatives of each set.
 	public mutating func findAllInPlace() -> Set<Int> {
 		return Set(lazy(sets)
 			.map { $0.0 }
