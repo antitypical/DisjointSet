@@ -14,7 +14,7 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType 
 	}
 
 
-	public mutating func findAll() -> Set<Int> {
+	public mutating func findAllInPlace() -> Set<Int> {
 		return Set(lazy(sets)
 			.map { $0.0 }
 			.map(findInPlace))
