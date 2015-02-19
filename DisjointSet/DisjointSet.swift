@@ -1,6 +1,10 @@
 //  Copyright (c) 2015 Rob Rix. All rights reserved.
 
+/// A disjoint set is a collection whose elements are grouped together into disjoint (non-overlapping) partitions.
+///
+/// No restrictions are placed on the elements themselves, but access to the partitions is almost exclusively mediated by index. Therefore, the caller will need to be able to produce the index for a given element from a binary search or a dictionary if they do not wish to resort to linear search via `find`.
 public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType, Printable {
+	/// Constructs a disjoint set with the elements in a `sequence`.
 	public init<S: SequenceType where S.Generator.Element == T>(_ sequence: S) {
 		sets = map(enumerate(sequence)) { (parent: $0, rank: 0, value: $1) }
 	}
@@ -13,16 +17,28 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType,
 		return sets.count
 	}
 
-
-	public mutating func findAll() -> Set<Int> {
-		return Set(lazy(sets)
-			.map { $0.0 }
-			.map(find))
+	/// The set’s elements, partitioned into arrays.
+	public var partitions: LazyForwardCollection<MapCollectionView<Dictionary<Int, [T]>, [T]>> {
+		return reduce(lazy(enumerate(self))
+			.map { (self.find($0), $1) }, [Int: [T]](), { (var g, kv) in
+				g[kv.0] = (g[kv.0] ?? []) + [ kv.1 ]
+				return g
+			}).values
 	}
 
 
-	public mutating func union(a: Int, _ b: Int) {
-		let (r1, r2) = (find(a), find(b))
+	// MARK: Union
+
+	/// Returns the disjoint set created by merging the sets at indices `a` and `b` if they are not already merged.
+	public func union(a: Int, _ b: Int) -> DisjointSet {
+		var copy = self
+		copy.unionInPlace(a, b)
+		return copy
+	}
+
+	/// Merges the sets at indices `a` and `b` if they are not already merged.
+	public mutating func unionInPlace(a: Int, _ b: Int) {
+		let (r1, r2) = (findInPlace(a), findInPlace(b))
 		let (n1, n2) = (sets[r1], sets[r2])
 		if r1 != r2 {
 			if n1.rank < n2.rank {
@@ -36,15 +52,34 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType,
 		}
 	}
 
-	public mutating func find(a: Int) -> Int {
+
+	// MARK: Find
+
+	/// Returns the index of the representative of the set for the element at index `a`.
+	public func find(var a: Int) -> Int {
+		while sets[a].parent != a {
+			a = sets[a].parent
+		}
+		return a
+	}
+
+	/// Returns the index of the representative of the set for the element at index `a`.
+	public mutating func findInPlace(a: Int) -> Int {
 		let n = sets[a]
 		if n.parent == a {
 			return a
 		} else {
-			let parent = find(n.parent)
+			let parent = findInPlace(n.parent)
 			sets[a].parent = parent
 			return parent
 		}
+	}
+
+	/// Returns the indices of the representatives of each set.
+	public mutating func findAllInPlace() -> Set<Int> {
+		return Set(lazy(sets)
+			.map { $0.0 }
+			.map(findInPlace))
 	}
 
 
@@ -93,7 +128,7 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType,
 
 	public var description: String {
 		let groups = reduce(lazy(enumerate(self))
-			.map { (self.findImmutable($0), toString($1)) }, [Int: [String]]()) { (var g, kv) in
+			.map { (self.find($0), toString($1)) }, [Int: [String]]()) { (var g, kv) in
 				g[kv.0] = (g[kv.0] ?? []) + [ kv.1 ]
 				return g
 			}
@@ -110,12 +145,12 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType,
 
 	// MARK: Private
 
-	private func findImmutable(var x: Int) -> Int {
-		while sets[x].parent != x {
-			x = sets[x].parent
-		}
-		return x
-	}
-
+	/// The storage for the sets operated upon by the disjoint set.
+	///
+	/// The sets are logically an in-tree: each element has a parent index pointing at the next representative of its set. When the element is its set’s representative, `parent` will be its own index.
+	///
+	/// They are additionally ranked, which is an optimization which helps to ensure that the trees are as flat as possible.
+	///
+	/// Finally, they hold the caller-facing value of type `T`.
 	private var sets: [(parent: Int, rank: Int, value: T)]
 }

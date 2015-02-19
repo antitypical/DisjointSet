@@ -6,7 +6,7 @@ final class DisjointSetTests: XCTestCase {
 	func testEveryElementIsInitiallyDisjoint() {
 		var set = self.set
 		if !reduce(lazy(enumerate(set))
-			.map { index, _ in (index, set.find(index)) }
+			.map { index, _ in (index, set.findInPlace(index)) }
 			.map(==), true, { $0 && $1 }) {
 				failure("it didn't work")
 		}
@@ -14,14 +14,14 @@ final class DisjointSetTests: XCTestCase {
 
 	func testUnionCombinesPartitions() {
 		var set = self.set
-		set.union(1, 3)
-		assertEqual(set.findAll().count, 4)
+		set.unionInPlace(1, 3)
+		assertEqual(set.findAllInPlace().count, 4)
 	}
 
 	func testAppendedElementsAreInitiallyDisjoint() {
 		var set = self.set
 		set.append("f")
-		assert(set.find(5), ==, 5)
+		assert(set.findInPlace(5), ==, 5)
 	}
 }
 
