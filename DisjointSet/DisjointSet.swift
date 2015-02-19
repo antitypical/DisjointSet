@@ -106,5 +106,12 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType 
 
 	// MARK: Private
 
+	/// The storage for the sets operated upon by the disjoint set.
+	///
+	/// The sets are logically an in-tree: each element has a parent index pointing at the next representative of its set. When the element is its set’s representative, `parent` will be its own index.
+	///
+	/// They are additionally ranked, which is an optimization which helps to ensure that the trees are as flat as possible.
+	///
+	/// Finally, they hold the caller-facing value of type `T`.
 	private var sets: [(parent: Int, rank: Int, value: T)]
 }
