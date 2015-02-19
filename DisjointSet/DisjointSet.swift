@@ -14,6 +14,15 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType,
 		return sets.count
 	}
 
+	/// The set’s elements, partitioned into arrays.
+	public var partitions: LazyForwardCollection<MapCollectionView<Dictionary<Int, [T]>, [T]>> {
+		return reduce(lazy(enumerate(self))
+			.map { (self.find($0), $1) }, [Int: [T]](), { (var g, kv) in
+				g[kv.0] = (g[kv.0] ?? []) + [ kv.1 ]
+				return g
+			}).values
+	}
+
 
 	// MARK: Union
 
