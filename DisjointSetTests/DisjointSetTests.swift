@@ -14,7 +14,7 @@ final class DisjointSetTests: XCTestCase {
 
 	func testUnionCombinesPartitions() {
 		var set = self.set
-		set.union(1, 3)
+		set.unionInPlace(1, 3)
 		assertEqual(set.findAll().count, 4)
 	}
 
