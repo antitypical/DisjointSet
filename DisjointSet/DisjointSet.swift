@@ -14,13 +14,6 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType 
 	}
 
 
-	public mutating func findAllInPlace() -> Set<Int> {
-		return Set(lazy(sets)
-			.map { $0.0 }
-			.map(findInPlace))
-	}
-
-
 	public mutating func unionInPlace(a: Int, _ b: Int) {
 		let (r1, r2) = (findInPlace(a), findInPlace(b))
 		let (n1, n2) = (sets[r1], sets[r2])
@@ -36,6 +29,7 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType 
 		}
 	}
 
+
 	public mutating func findInPlace(a: Int) -> Int {
 		let n = sets[a]
 		if n.parent == a {
@@ -45,6 +39,12 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType 
 			sets[a].parent = parent
 			return parent
 		}
+	}
+
+	public mutating func findAllInPlace() -> Set<Int> {
+		return Set(lazy(sets)
+			.map { $0.0 }
+			.map(findInPlace))
 	}
 
 
