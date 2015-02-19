@@ -44,11 +44,11 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType,
 	// MARK: Find
 
 	/// Returns the index of the representative of the set for the element at index `a`.
-	public func find(a: Int) -> Int {
-		while sets[x].parent != x {
-			x = sets[x].parent
+	public func find(var a: Int) -> Int {
+		while sets[a].parent != a {
+			a = sets[a].parent
 		}
-		return x
+		return a
 	}
 
 	/// Returns the index of the representative of the set for the element at index `a`.
