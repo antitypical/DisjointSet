@@ -14,6 +14,8 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType 
 	}
 
 
+	// MARK: Union
+
 	/// Returns the disjoint set created by merging the sets at indices `a` and `b` if they are not already merged.
 	public func union(a: Int, _ b: Int) -> DisjointSet {
 		var copy = self
@@ -37,6 +39,8 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType 
 		}
 	}
 
+
+	// MARK: Find
 
 	/// Returns the index of the representative of the set for the element at index `a`.
 	public mutating func findInPlace(a: Int) -> Int {
