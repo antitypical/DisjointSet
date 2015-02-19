@@ -14,12 +14,14 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType 
 	}
 
 
+	/// Returns the disjoint set created by merging the sets at indices `a` and `b` if they are not already merged.
 	public func union(a: Int, _ b: Int) -> DisjointSet {
 		var copy = self
 		copy.unionInPlace(a, b)
 		return copy
 	}
 
+	/// Merges the sets at indices `a` and `b` if they are not already merged.
 	public mutating func unionInPlace(a: Int, _ b: Int) {
 		let (r1, r2) = (findInPlace(a), findInPlace(b))
 		let (n1, n2) = (sets[r1], sets[r2])
