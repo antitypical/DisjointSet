@@ -1,6 +1,7 @@
 //  Copyright (c) 2015 Rob Rix. All rights reserved.
 
 public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType, Printable {
+	/// Constructs a disjoint set with the elements in a `sequence`.
 	public init<S: SequenceType where S.Generator.Element == T>(_ sequence: S) {
 		sets = map(enumerate(sequence)) { (parent: $0, rank: 0, value: $1) }
 	}
