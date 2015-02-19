@@ -1,5 +1,8 @@
 //  Copyright (c) 2015 Rob Rix. All rights reserved.
 
+/// A disjoint set is a collection whose elements are grouped together into disjoint (non-overlapping) partitions.
+///
+/// No restrictions are placed on the elements themselves, but access to the partitions is almost exclusively mediated by index. Therefore, the caller will need to be able to produce the index for a given element from a binary search or a dictionary if they do not wish to resort to linear search via `find`.
 public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType, Printable {
 	/// Constructs a disjoint set with the elements in a `sequence`.
 	public init<S: SequenceType where S.Generator.Element == T>(_ sequence: S) {
