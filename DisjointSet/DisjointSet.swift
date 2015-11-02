@@ -6,7 +6,7 @@
 public struct DisjointSet<T>: ArrayLiteralConvertible, RangeReplaceableCollectionType, CustomStringConvertible {
 	/// Constructs a disjoint set with the elements in a `sequence`.
 	public init<S: SequenceType where S.Generator.Element == T>(_ sequence: S) {
-		sets = map(sequence.enumerate()) { (parent: $0, rank: 0, value: $1) }
+		sets = sequence.enumerate().map { (parent: $0, rank: 0, value: $1) }
 	}
 
 
@@ -79,7 +79,7 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, RangeReplaceableCollectio
 
 	/// Returns the indices of the representatives of each set.
 	public mutating func findAllInPlace() -> Set<Int> {
-		return Set(lazy(sets)
+		return Set(sets.lazy
 			.map { $0.0 }
 			.map(findInPlace))
 	}
@@ -129,19 +129,19 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, RangeReplaceableCollectio
 	// MARK: Printable
 
 	public var description: String {
-		let groups = lazy(self.enumerate())
+		let groups = enumerate().lazy
 			.map { (self.find($0), String($1)) }.reduce([Int: [String]]()) { (var g, kv) in
 				g[kv.0] = (g[kv.0] ?? []) + [ kv.1 ]
 				return g
 			}
-		return "{" + lazy(groups).map { "{" + $1.joinWithSeparator(", ") + "}" }.joinWithSeparator(", ") + "}"
+		return "{\(groups.lazy.map { "{\($1.joinWithSeparator(", "))}" }.joinWithSeparator(", "))}"
 	}
 
 
 	// MARK: SequenceType
 
 	public func generate() -> AnyGenerator<T> {
-		return anyGenerator(lazy(sets).map { $2 }.generate())
+		return anyGenerator(sets.lazy.map { $2 }.generate())
 	}
 
 
