@@ -3,10 +3,10 @@
 /// A disjoint set is a collection whose elements are grouped together into disjoint (non-overlapping) partitions.
 ///
 /// No restrictions are placed on the elements themselves, but access to the partitions is almost exclusively mediated by index. Therefore, the caller will need to be able to produce the index for a given element from a binary search or a dictionary if they do not wish to resort to linear search via `find`.
-public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType, Printable {
+public struct DisjointSet<T>: ArrayLiteralConvertible, CollectionType, CustomStringConvertible {
 	/// Constructs a disjoint set with the elements in a `sequence`.
 	public init<S: SequenceType where S.Generator.Element == T>(_ sequence: S) {
-		sets = map(enumerate(sequence)) { (parent: $0, rank: 0, value: $1) }
+		sets = sequence.enumerate().map { (parent: $0, rank: 0, value: $1) }
 	}
 
 
@@ -18,12 +18,14 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType,
 	}
 
 	/// The set’s elements, partitioned into arrays.
-	public var partitions: LazyForwardCollection<MapCollectionView<Dictionary<Int, [T]>, [T]>> {
-		return reduce(lazy(enumerate(self))
-			.map { (self.find($0), $1) }, [Int: [T]](), { (var g, kv) in
+	public var partitions: LazyMapCollection<Dictionary<Int, [T]>, [T]> {
+		return enumerate().lazy
+			.map { (self.find($0), $1) }
+			.reduce([Int: [T]]()) { (var g, kv) in
 				g[kv.0] = (g[kv.0] ?? []) + [ kv.1 ]
 				return g
-			}).values
+			}
+			.values
 	}
 
 
@@ -77,9 +79,9 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType,
 
 	/// Returns the indices of the representatives of each set.
 	public mutating func findAllInPlace() -> Set<Int> {
-		return Set(lazy(sets)
+		return Set(sets.lazy
 			.map { $0.0 }
-			.map(findInPlace))
+			.map { self.findInPlace($0) })
 	}
 
 
@@ -114,7 +116,7 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType,
 	}
 
 	public mutating func append(value: T) {
-		sets.append(parent: count, rank: 0, value: value)
+		sets.append((parent: count, rank: 0, value: value))
 	}
 
 	public mutating func extend<S: SequenceType where S.Generator.Element == T>(values: S) {
@@ -127,19 +129,19 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, ExtensibleCollectionType,
 	// MARK: Printable
 
 	public var description: String {
-		let groups = reduce(lazy(enumerate(self))
-			.map { (self.find($0), toString($1)) }, [Int: [String]]()) { (var g, kv) in
+		let groups = enumerate().lazy
+			.map { (self.find($0), String($1)) }.reduce([Int: [String]]()) { (var g, kv) in
 				g[kv.0] = (g[kv.0] ?? []) + [ kv.1 ]
 				return g
 			}
-		return "{" + ", ".join(lazy(groups).map { "{" + ", ".join($1) + "}" }) + "}"
+		return "{\(groups.lazy.map { "{\($1.joinWithSeparator(", "))}" }.joinWithSeparator(", "))}"
 	}
 
 
 	// MARK: SequenceType
 
-	public func generate() -> GeneratorOf<T> {
-		return GeneratorOf(lazy(sets).map { $2 }.generate())
+	public func generate() -> AnyGenerator<T> {
+		return anyGenerator(sets.lazy.map { $2 }.generate())
 	}
 
 

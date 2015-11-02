@@ -5,9 +5,9 @@ final class DisjointSetTests: XCTestCase {
 
 	func testEveryElementIsInitiallyDisjoint() {
 		var set = self.set
-		if !reduce(lazy(enumerate(set))
+		if !(set.enumerate().lazy
 			.map { index, _ in (index, set.findInPlace(index)) }
-			.map(==), true, { $0 && $1 }) {
+			.map(==)).reduce(true, combine: { $0 && $1 }) {
 				failure("it didn't work")
 		}
 	}
