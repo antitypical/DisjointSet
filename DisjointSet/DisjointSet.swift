@@ -116,7 +116,7 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, CollectionType, CustomStr
 	}
 
 	public mutating func append(value: T) {
-		sets.append(parent: count, rank: 0, value: value)
+		sets.append((parent: count, rank: 0, value: value))
 	}
 
 	public mutating func extend<S: SequenceType where S.Generator.Element == T>(values: S) {
