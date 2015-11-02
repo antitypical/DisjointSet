@@ -81,7 +81,7 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, CollectionType, CustomStr
 	public mutating func findAllInPlace() -> Set<Int> {
 		return Set(sets.lazy
 			.map { $0.0 }
-			.map(findInPlace))
+			.map { self.findInPlace($0) })
 	}
 
 
