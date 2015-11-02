@@ -18,12 +18,14 @@ public struct DisjointSet<T>: ArrayLiteralConvertible, RangeReplaceableCollectio
 	}
 
 	/// The set’s elements, partitioned into arrays.
-	public var partitions: LazyForwardCollection<LazyMapCollection<Dictionary<Int, [T]>, [T]>> {
-		return lazy(self.enumerate())
-			.map { (self.find($0), $1) }.reduce([Int: [T]](), { (var g, kv) in
+	public var partitions: LazyMapCollection<Dictionary<Int, [T]>, [T]> {
+		return enumerate().lazy
+			.map { (self.find($0), $1) }
+			.reduce([Int: [T]]()) { (var g, kv) in
 				g[kv.0] = (g[kv.0] ?? []) + [ kv.1 ]
 				return g
-			}).values
+			}
+			.values
 	}
 
 
